@@ -1,0 +1,13 @@
+#with open("temp.txt", "r") as f:
+#    text = f.read()
+#    text = "\n".join([line for line in text.split("\n") if "http" not in line])
+
+# with open("result.txt", "w") as f: 
+#     f.write(text)
+
+with open("temp.txt", "r") as f_in, open("result.txt", "w") as f_out:
+    f_out.writelines((line for line in f_in if "http" not in line))
+
+# Write 2 open() in one line
+# .writelines(iterable)
+# txt files are iterable! \n
