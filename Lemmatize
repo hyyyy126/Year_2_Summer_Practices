@@ -1,0 +1,21 @@
+import nltk
+import pandas as pd
+from nltk import WordNetLemmatizer
+verb_tags = ["VB", "VBD", "VBG", "VBN", "VBP", "VBZ"]
+noun_tags = ["NN", "NNP", "NNS", "NNPS"]
+adj_tags = ["JJ", "JJR", "JJS"]
+data = pd.read_csv("data.csv")
+lmtzr = WordNetLemmatizer()
+lemma = []
+for item in data["MWE"]:
+    temp_item, word = "", nltk.pos_tag(nltk.word_tokenize(item))
+    for token in word:
+        if token[1] in noun_tags:
+            temp_item += f"{lmtzr.lemmatize(token[0], pos = "n").lower()} "
+        elif token[1] in verb_tags:
+            temp_item += f"{lmtzr.lemmatize(token[0], pos = "v").lower()} "
+        elif token[1] in adj_tags:
+            temp_item += f"{lmtzr.lemmatize(token[0], pos = "a").lower()} "
+    lemma.append(temp_item.strip())
+data.insert(1, "Lemma", lemma)
+data.to_csv("output.csv")
