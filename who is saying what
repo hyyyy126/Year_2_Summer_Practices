@@ -1,0 +1,2 @@
+with open("news.txt") as f: l = list(set([x for x in f.read().replace("。", "\n").replace("？", "\n").replace("！", "\n").split("\n") if "name" in x or "title" in x if "topic" in x if "：" in x]))
+for i in range(20): print(l[i], "\n")
